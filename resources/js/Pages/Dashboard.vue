@@ -1,11 +1,15 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-
+import SiteSelector from '@/Components/SiteSelector.vue';
 
 
 defineProps({
     site: {
         type: Object,
+        required: true,
+    },
+    sites: {
+        type: Array,
         required: true,
     },
 });
@@ -14,9 +18,14 @@ defineProps({
 <template>
     <AppLayout title="Dashboard">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Dashboard
-            </h2>
+            <div class="flex items-center justify-between p-4">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    Dashboard
+                </h2>
+                <div>
+                   <SiteSelector :sites="sites" />
+                </div>
+            </div>
         </template>
 
         <div class="py-12">
