@@ -15,6 +15,15 @@ class Site extends Model
         'default',
     ];
 
+    public static function booted()
+    {
+        static::updating(function (Site $site) {
+           if(in_array('default',array_keys($site->getDirty()))){
+               $site->user->sites()->whereNot('id',$site->id)->update(['default'=>false]);
+           }
+        });
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
