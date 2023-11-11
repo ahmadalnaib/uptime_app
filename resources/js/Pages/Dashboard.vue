@@ -6,11 +6,11 @@ import SiteSelector from '@/Components/SiteSelector.vue';
 defineProps({
     site: {
         type: Object,
-        required: true,
+      
     },
     sites: {
         type: Object,
-        required: true,
+      
     },
 });
 </script>
@@ -31,7 +31,8 @@ defineProps({
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                   {{ site.domain }}
+                   {{ site }}
+                   
                 </div>
             </div>
         </div>
