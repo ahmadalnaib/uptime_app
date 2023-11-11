@@ -9,7 +9,7 @@ defineProps({
         required: true,
     },
     sites: {
-        type: Array,
+        type: Object,
         required: true,
     },
 });
@@ -23,7 +23,7 @@ defineProps({
                     Dashboard
                 </h2>
                 <div>
-                   <SiteSelector :sites="sites" />
+                   <SiteSelector :sites="sites.data" />
                 </div>
             </div>
         </template>
