@@ -21,15 +21,29 @@
    
   </VDropdown>
 
-  <VueFinalModal v-model="showNewSiteModal" classes="flex justify-center items-center pt-16 md:pt-24 mx-4" content-class="relative max-h-full rounded bg-white w-full max-w-2xl p-4 md:p-6" overlay-class="bg-gradient-to-r from-gray-800 to gray-500 opacity-50" :esc-to-close="true">
-    Modal content
+  <VueFinalModal v-model="showNewSiteModal" class="flex justify-center items-center pt-16 md:pt-24 mx-4 " content-class="relative max-h-full rounded bg-white w-full max-w-2xl p-4 md:p-6 " overlay-class="bg-gradient-to-r from-gray-800 to gray-500 opacity-50" :esc-to-close="true">
+ <h2 class="font-semibold text-lg text-gray-800 leading-tight">New Site</h2>
+ <form @submit.prevent="createSite"  class="overview-hidden space-y-4">
+  <InputLabel for="domain" value="Domain"  class="sr-only" />
+<TextInput id="domain" type="text" class="block w-full h-9 text-sm" placeholder="e.g. https://ahmadhabeeb.com" v-model="siteForm.domain" :class="{'border-red-500':siteForm.errors.domain}"/>
+<input-error :message="siteForm.errors.domain" />
+<primary-button>
+  Add
+</primary-button>
+ </form>
   </VueFinalModal>
 </template>
 
 <script setup>
 import { Link } from '@inertiajs/vue3';
 import {VueFinalModal} from 'vue-final-modal';
+import TextInput from '@/Components/TextInput.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import InputError from '@/Components/InputError.vue';
 import {ref} from 'vue'
+import { useForm } from '@inertiajs/vue3';
+
 
 defineProps({
     sites: {
@@ -38,6 +52,22 @@ defineProps({
     },
 });
 
+const siteForm = useForm({
+    domain: '',
+});
+
 const showNewSiteModal = ref(false);
+
+const createSite = () => {
+    siteForm.post(route('sites.store'),{
+        preserveScroll: true,
+        onSuccess: () => {
+            showNewSiteModal.value = false;
+        }
+    
+    })
+};
+
+
 
 </script>
