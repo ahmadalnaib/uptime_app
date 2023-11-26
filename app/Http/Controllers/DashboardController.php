@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\EndpointFrequency;
+use App\Http\Resources\EndpointFrequencyResource;
 use App\Http\Resources\SiteResource;
 use App\Models\Site;
 use Illuminate\Http\Request;
@@ -21,7 +23,8 @@ class DashboardController extends Controller
         }
         return inertia()->render('Dashboard',[
             'site'=> SiteResource::make($site),
-            'sites'=>SiteResource::collection(Site::get())
+            'sites'=>SiteResource::collection(Site::get()),
+            'endpointFrequencies'=>EndpointFrequencyResource::collection(EndpointFrequency::cases()),
 
         ]);
     }
